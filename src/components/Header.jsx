@@ -1,16 +1,26 @@
-import { Link } from "react-router-dom";
-import photo from "../assets/5176119115_f157862569_o1.png";
+import { Link, useLocation } from "react-router-dom";
+import photo from "../assets/books.png";
 import { PiBookBookmark } from "react-icons/pi";
+import photo2 from "../assets/blackedOne.png";
 
-export default function Header() {
+export default function Header({ vh }) {
+  const location = useLocation();
+
+  const img =
+    location.pathname == "/"
+      ? photo
+      : location.pathname == "/about"
+        ? photo2
+        : "";
   return (
     <div
       className="w-full h-84.5"
       style={{
-        backgroundImage: `url(${photo})`,
+        backgroundImage: `url(${img})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: `cover`,
         backgroundPosition: `center`,
+        height: `${vh}px`,
       }}
     >
       <div className="w-full h-23 bg-white/20 flex justify-center items-center ">
@@ -26,7 +36,10 @@ export default function Header() {
               <div className="w-px h-7.5 bg-white/30  "></div>
 
               <div className="flex justify-center items-center gap-10">
-                <Link className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]">
+                <Link
+                  to={"/home"}
+                  className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]"
+                >
                   Home
                 </Link>
                 <Link className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]">

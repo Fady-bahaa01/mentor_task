@@ -15,6 +15,7 @@ export default function App() {
             <Route index element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="home" element={<Homepage />} />
+            <Route path="about" element={<About />} />
           </Route>
         </Routes>
       </BrowserRouter>
