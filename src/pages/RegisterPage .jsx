@@ -4,22 +4,25 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import SocialButtons from "../components/SocialButtons";
+import { domain } from "..";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const handlsubmit = (values) => {
-    let url = "http://localhost:1337/api/auth/local/register";
+    let url = domain + "/register";
 
     let data = {
-      username: `${values.firstname + values.lastname}`,
+      first_name: values.first_name,
+      last_name: values.last_name,
       email: values.email,
       password: values.password,
+      password_confirmation: values.confirmpassword,
     };
 
     axios
       .post(url, data)
       .then((res) => {
-        const token = res.data.jwt;
+        const token = res.data.data.token;
         toast.success("Register success");
         values.checkbox
           ? localStorage.setItem("token", token)
@@ -33,8 +36,8 @@ export default function RegisterPage() {
   };
 
   const validation = Yup.object({
-    firstname: Yup.string().required("First name required"),
-    lastname: Yup.string().required("Last name required"),
+    first_name: Yup.string().required("First name required"),
+    last_name: Yup.string().required("Last name required"),
     email: Yup.string().email("Invalid email").required("Email required"),
     password: Yup.string().min(6, "Min 6 chars").required("Password required"),
     confirmpassword: Yup.string()
@@ -49,11 +52,11 @@ export default function RegisterPage() {
 
         <Formik
           initialValues={{
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
             checkbox: false,
-            firstname: "",
-            lastname: "",
             confirmpassword: "",
           }}
           onSubmit={handlsubmit}
@@ -69,13 +72,13 @@ export default function RegisterPage() {
                   First name
                 </label>
                 <Field
-                  name="firstname"
+                  name="first_name"
                   type="text"
                   className="w-70 h-13.5 rounded-lg input text-black font-open font-normal text-[16px]  border border-[#222222]/20 bg-white placeholder:text-[#22222280]/50"
                   placeholder="john"
                 />
                 <ErrorMessage
-                  name="firstname"
+                  name="first_name"
                   component={"p"}
                   className="font-sans font-semibold text-[16px] text-red-400"
                 />
@@ -88,13 +91,13 @@ export default function RegisterPage() {
                   Last name
                 </label>
                 <Field
-                  name="lastname"
+                  name="last_name"
                   type="text"
                   className="w-70 h-13.5 rounded-lg input bg-white text-black font-open font-normal text-[16px]  border border-[#222222]/20 placeholder:text-[#22222280]/50"
                   placeholder="smith"
                 />
                 <ErrorMessage
-                  name="lastname"
+                  name="last_name"
                   component={"p"}
                   className="font-sans font-semibold text-[16px] text-red-400"
                 />

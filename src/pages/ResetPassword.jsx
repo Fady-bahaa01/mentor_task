@@ -1,0 +1,118 @@
+import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+
+import { domain } from "..";
+
+export default function ResetPassword() {
+  let nav = useNavigate();
+  const handlsubmit = (value) => {
+    let url = domain + "/reset-password";
+
+    let data = {
+      password: value.password,
+      confirmPassword: value.confirmPassword,
+    };
+
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res);
+        toast.success("Password reset successfully");
+        nav("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.error?.message);
+      });
+  };
+
+  const validation = Yup.object({
+    password: Yup.string().required().min(8),
+    confirmPassword: Yup.string()
+      .required()
+      .oneOf([Yup.ref("password"), null], "Passwords must match"),
+  });
+
+  return (
+    <div className="w-full h-[1260px] flex justify-center ">
+      <div className="w-xl h-[467px] mt-15 flex items-center  flex-col">
+        <p className="font-sans text-[16px] text-[#D9176C] ">
+          Forget Password?
+        </p>
+        <p className="font-open font-normal text-[14px] text-[#222222]/50 mt-4 leading-[21.75px]">
+          Enter your email to reset your password
+        </p>
+
+        <Formik
+          initialValues={{ password: "", confirmPassword: "" }}
+          onSubmit={handlsubmit}
+          validationSchema={validation}
+        >
+          <Form className="w-full h-full mt-10 flex  flex-col gap-6 ">
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor=""
+                className="font-sans font-semibold text-[#222222] text-[18px] "
+              >
+                Password
+              </label>
+              <Field
+                name="email"
+                type="email"
+                placeholder="example@gmail.com"
+                className="w-full h-[54px] rounded-lg input text-black font-open font-normal text-[16px] border border-[#222222]/20 bg-white placeholder:text-[#22222280]/50 "
+              />
+              <ErrorMessage
+                name="password"
+                component={"p"}
+                className="font-sans font-semibold text-[16px] text-red-400"
+              />
+            </div>
+            {/*----------------------------------------------*/}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor=""
+                className="font-sans font-semibold text-[#222222] text-[18px] "
+              >
+                Confirm password
+              </label>
+              <Field
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                className="w-full h-[54px] rounded-lg input text-black font-open font-normal text-[16px] border border-[#222222]/20 bg-white placeholder:text-[#22222280]/50 "
+              />
+              <ErrorMessage
+                name="confirmPassword"
+                component={"p"}
+                className="font-sans font-semibold text-[16px] text-red-400"
+              />
+            </div>
+            <div className="w-full mt-4 flex justify-between">
+              <div className=" flex gap-2">
+                <Field
+                  type="checkbox"
+                  name="checkbox"
+                  className="checkbox checkbox-error"
+                />
+                <p className="font-sans text-[14px] text-[#222222] leading-[21.75px]  ">
+                  Remember me
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full h-[48px] mt-4 bg-[#D9176C] rounded-lg text-[16px] font-sans font-semibold text-white text-center"
+            >
+              Reset password
+            </button>
+          </Form>
+        </Formik>
+      </div>
+    </div>
+  );
+}

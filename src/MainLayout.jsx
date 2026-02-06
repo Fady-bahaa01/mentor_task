@@ -5,12 +5,7 @@ import Footer from "./components/Footer";
 export default function MainLayout() {
   let location = useLocation();
 
-  let height =
-    location.pathname == "/"
-      ? "338"
-      : location.pathname == "/register"
-        ? "338"
-        : "804";
+  let height = !location.pathname == "/" ? "804" : "338";
 
   return (
     <div className="w-full bg-[#F5F5F5]">

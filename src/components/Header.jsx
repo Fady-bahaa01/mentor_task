@@ -11,7 +11,7 @@ export default function Header({ vh }) {
       ? photo
       : location.pathname == "/about"
         ? photo2
-        : "";
+        : photo;
   return (
     <div
       className="w-full h-84.5"
@@ -45,7 +45,10 @@ export default function Header({ vh }) {
                 <Link className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]">
                   Books
                 </Link>
-                <Link className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]">
+                <Link
+                  to={"/about"}
+                  className="font-open font-semibold text-[18px] text-white hover:text-[#EAA451]"
+                >
                   About us
                 </Link>
               </div>

@@ -4,16 +4,15 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import SocialButtons from "../components/SocialButtons";
+import { domain } from "..";
 
 export default function LoginPage() {
   let nav = useNavigate();
   const handlsubmit = (value) => {
-    let domain = "http://localhost:1337";
-    let end = "/api/auth/local";
-    let url = domain + end;
+    let url = domain + "/login";
 
     let data = {
-      identifier: value.email,
+      email: value.email,
       password: value.password,
     };
 
@@ -22,7 +21,7 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res);
         toast.success("login sucess");
-        const token = res.data.jwt;
+        const token = res.data.data.token;
         value.checkbox
           ? localStorage.setItem("token", token)
           : sessionStorage.setItem("token", token);
@@ -99,7 +98,10 @@ export default function LoginPage() {
                   Remember me
                 </p>
               </div>
-              <Link className="font-sans font-normal text-[16] text-[#D9176C] leading-[21.75px]">
+              <Link
+                to={"/forget-password"}
+                className="font-sans font-normal text-[16] text-[#D9176C] leading-[21.75px]"
+              >
                 Forget password?
               </Link>
             </div>

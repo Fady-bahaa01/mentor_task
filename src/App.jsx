@@ -4,6 +4,10 @@ import MainLayout from "./MainLayout";
 import { Toaster } from "react-hot-toast";
 import RegisterPage from "./pages/RegisterPage ";
 import Homepage from "./pages/Homepage";
+import About from "./pages/About";
+import ForgetPassword from "./pages/ForgetPassword";
+import AddCode from "./pages/AddCode";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function App() {
   return (
@@ -16,6 +20,9 @@ export default function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="home" element={<Homepage />} />
             <Route path="about" element={<About />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
+            <Route path="add-code" element={<AddCode />} />
+            <Route path="reset-password" element={<ResetPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
