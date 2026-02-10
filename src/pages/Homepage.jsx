@@ -90,7 +90,7 @@ export default function Homepage() {
       {/*//////////////////////////////////////////////////////////////////// */}
       {/*//////////////////////////////////////////////////////////////////// */}
 
-      <div className="w-full h-[706px] border border-t border-[#222222]/20 flex flex-col gap-[72px]   pl-15 pr-30 py-30">
+      <div className="w-full h-[706px] border border-t border-[#222222]/20 flex flex-col gap-[72px] items-center justify-center pl-15 pr-30 py-30">
         <div className="w-[1260px] h-[95px] flex justify-between">
           <div className="w-[516px] h-full">
             <h2 className="font-open font-bold text-[26px] text-[#222222]">

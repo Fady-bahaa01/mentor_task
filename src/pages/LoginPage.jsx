@@ -4,10 +4,14 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import SocialButtons from "../components/SocialButtons";
-import { domain } from "..";
+import { domain, useAuthStore } from "..";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   let nav = useNavigate();
+
+  const { checkAuth } = useAuthStore((state) => state.checkAuth);
+
   const handlsubmit = (value) => {
     let url = domain + "/login";
 
@@ -26,6 +30,7 @@ export default function LoginPage() {
           ? localStorage.setItem("token", token)
           : sessionStorage.setItem("token", token);
         nav("/home");
+        checkAuth();
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +42,10 @@ export default function LoginPage() {
     email: Yup.string().required().email(),
     password: Yup.string().required(),
   });
+
+  useEffect(() => {
+    () => checkAuth();
+  }, [checkAuth]);
 
   return (
     <div className="w-full h-[1480px] flex justify-center ">

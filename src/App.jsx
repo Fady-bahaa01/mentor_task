@@ -8,6 +8,8 @@ import About from "./pages/About";
 import ForgetPassword from "./pages/ForgetPassword";
 import AddCode from "./pages/AddCode";
 import ResetPassword from "./pages/ResetPassword";
+import Book from "./pages/Book";
+import Business from "./components/Categories/Business";
 
 export default function App() {
   return (
@@ -22,6 +24,9 @@ export default function App() {
             <Route path="about" element={<About />} />
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="add-code" element={<AddCode />} />
+            <Route path="book" element={<Book />}>
+              <Route path="business" element={<Business />} />
+            </Route>
             <Route path="reset-password" element={<ResetPassword />} />
           </Route>
         </Routes>
