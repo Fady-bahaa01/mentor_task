@@ -7,8 +7,17 @@ import axios from "axios";
 import ContactCard from "../components/Cards/ContactCard";
 import Massage from "../components/Cards/Massage";
 import OurPowerPoints from "../components/Cards/OurPowerPoints";
+import { useEffect } from "react";
+import { AuthStore } from "..";
+import { useNavigate } from "react-router-dom";
 
 export default function About() {
+  const navigate = useNavigate();
+  const authorized = AuthStore((state) => state.authorized);
+  console.log(authorized);
+  useEffect(() => {
+    authorized == false ? navigate("/") : "";
+  }, []);
   return (
     <div className="w-full h-full relative">
       <div className="w-[652px] h-[180px] flex flex-col gap-4 items-center absolute -top-[476px] left-[394px]">

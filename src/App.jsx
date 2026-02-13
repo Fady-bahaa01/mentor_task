@@ -10,6 +10,8 @@ import AddCode from "./pages/AddCode";
 import ResetPassword from "./pages/ResetPassword";
 import Book from "./pages/Book";
 import Business from "./components/Categories/Business";
+import CartPage from "./pages/CartPage";
+import WishlistPage from "./pages/WishlistPage";
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
             <Route path="about" element={<About />} />
             <Route path="forget-password" element={<ForgetPassword />} />
             <Route path="add-code" element={<AddCode />} />
+            <Route path="cart-page" element={<CartPage />} />
+            <Route path="wishlist-page" element={<WishlistPage />} />
             <Route path="book" element={<Book />}>
               <Route path="business" element={<Business />} />
             </Route>

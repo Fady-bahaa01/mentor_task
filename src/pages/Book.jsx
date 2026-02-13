@@ -1,17 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { domain } from "..";
+import { AuthStore, domain } from "..";
 import { VscSettings } from "react-icons/vsc";
 import CategorySelection from "../components/Cards/CategorySelection";
 import PublisherSelection from "../components/Cards/PublisherSelection";
 import YearSelection from "../components/Cards/YearSelection";
 import { Mic, Search } from "lucide-react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import CategoriesCard from "../components/Cards/CategoriesCard";
 
 export default function Book() {
   const [books, setBooks] = useState();
+  const navigate = useNavigate();
+  const authorized = AuthStore((state) => state.authorized);
 
+  // api is not workingg :)
   useEffect(() => {
     let url = domain + "/book";
     axios
@@ -24,6 +27,10 @@ export default function Book() {
         console.log(res);
       })
       .catch((err) => {});
+  }, []);
+
+  useEffect(() => {
+    !authorized ? navigate("/") : "";
   }, []);
   return (
     <div className="w-full h-full">
